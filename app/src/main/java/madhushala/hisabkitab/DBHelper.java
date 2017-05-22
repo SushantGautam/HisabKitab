@@ -48,4 +48,14 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues(); //ContentValues class can store label-value pair
         return true; //This is a boolean. will return 1 if success
     }
+
+
+    public boolean updateRow(Integer id, String name, String amount) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("name", name);
+        contentValues.put("amount", amount);
+        db.update("contacts", contentValues, "id = ? ", new String[]{Integer.toString(id)});
+        return true;
+    }
 }
