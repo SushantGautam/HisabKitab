@@ -1,5 +1,6 @@
 package madhushala.hisabkitab;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
@@ -36,5 +37,15 @@ public class DBHelper extends SQLiteOpenHelper {
         //DatabaseUtils is a module to play with databse. we should include it in header as well to use
         // Here we use queryNumEntries method of DatabaseUtils to get number of datas in our database file
         return numofRows;
+    }
+
+
+    //This function will add a new row of data in the database
+
+    public boolean insertRow(String name, String amount) {
+
+        SQLiteDatabase db = this.getWritableDatabase(); //Lets make a SQLiteDatabase object to use within this fuction
+        ContentValues contentValues = new ContentValues(); //ContentValues class can store label-value pair
+        return true; //This is a boolean. will return 1 if success
     }
 }
