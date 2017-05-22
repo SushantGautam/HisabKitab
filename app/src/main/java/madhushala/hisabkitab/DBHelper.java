@@ -14,9 +14,16 @@ public class DBHelper extends SQLiteOpenHelper
         super(context, name, factory, version);
     }
 
-    @Override
-    public void onCreate(SQLiteDatabase db) {
 
+
+    @Override
+    //We need to maken a database when this class is created to do so execute the following SQL command::
+    // create table contacts( id integer primary key, name text,phone text,email text, street text,place text)
+    // This is a raw sql command. We can call it using execSQL method
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL
+    (
+       "create table contacts " +"(id integer primary key, name text,phone text,email text, street text,place text)" );
     }
 
     @Override
