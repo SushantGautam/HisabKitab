@@ -2,9 +2,12 @@ package madhushala.hisabkitab;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
 
 /**
  * Created by eSushant on 5/22/2017.
@@ -58,4 +61,30 @@ public class DBHelper extends SQLiteOpenHelper {
         db.update("contacts", contentValues, "id = ? ", new String[]{Integer.toString(id)});
         return true;
     }
+
+
+
+    public Integer deleteRow (Integer id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete("contacts",
+                "id = ? ",
+                new String[] { Integer.toString(id) });
+    }
+
+
+    //Function to return all data as a arraylist datatype
+    public ArrayList<String> getAllRows() {
+        ArrayList<String> dataarray = new ArrayList<String>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor alldata =  db.rawQuery( "select * from contacts", null );
+        alldata.moveToFirst();
+
+        while(alldata.isAfterLast() == false){
+            dataarray.add(alldata.getString(alldata.getColumnIndex("name")));
+            alldata.moveToNext();
+        } //this loops adds all rows to our array variable
+        return dataarray;
+    }
 }
+
+
