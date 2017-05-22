@@ -1,6 +1,7 @@
 package madhushala.hisabkitab;
 
 import android.content.Context;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -27,5 +28,13 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    public int numberOfDatas() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int numofRows = (int) DatabaseUtils.queryNumEntries(db, "hisabkitab.db");
+        //DatabaseUtils is a module to play with databse. we should include it in header as well to use
+        // Here we use queryNumEntries method of DatabaseUtils to get number of datas in our database file
+        return numofRows;
     }
 }
