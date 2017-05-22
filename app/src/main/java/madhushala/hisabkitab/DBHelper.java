@@ -18,6 +18,11 @@ public class DBHelper extends SQLiteOpenHelper {
         super(context, name, factory, version);
     }
 
+    //Constructor class. This is called another class as DBHelper(this)
+    public DBHelper(Context context, String name) {
+        super(context, "hisabkitab.db", null, 1); //This will initialize database
+    }
+
 
     @Override
     //We need to make a database when this class is created to do so execute the following SQL command::
@@ -63,12 +68,11 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-
-    public Integer deleteRow (Integer id) {
+    public Integer deleteRow(Integer id) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete("contacts",
                 "id = ? ",
-                new String[] { Integer.toString(id) });
+                new String[]{Integer.toString(id)});
     }
 
 
@@ -76,14 +80,21 @@ public class DBHelper extends SQLiteOpenHelper {
     public ArrayList<String> getAllRows() {
         ArrayList<String> dataarray = new ArrayList<String>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor alldata =  db.rawQuery( "select * from contacts", null );
+        Cursor alldata = db.rawQuery("select * from contacts", null);
         alldata.moveToFirst();
 
-        while(alldata.isAfterLast() == false){
+        while (alldata.isAfterLast() == false) {
             dataarray.add(alldata.getString(alldata.getColumnIndex("name")));
             alldata.moveToNext();
         } //this loops adds all rows to our array variable
         return dataarray;
+    }
+
+    //Function to return specific row
+    public Cursor getRow(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from contacts where id=" + id + "", null);
+        return res;
     }
 }
 
