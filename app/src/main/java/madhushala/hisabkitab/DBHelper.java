@@ -23,7 +23,7 @@ public class DBHelper extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db) {
         db.execSQL
     (
-       "create table contacts " +"(id integer primary key, name text,phone text,email text, street text,place text)" );
+       "create table contacts " +"(id integer primary key, name text,amount text)" );
     }
 
     @Override
